@@ -14,7 +14,7 @@ let laneArray=[
     0,2,1,2,0,1,2,0,0,2,1,0,2,1,0,2,1,2,0,1,2,0,0,2,1,0,2,1,0,0,1,2,2,0,0,0,1,2
 ]
 
-const N=500;
+const N=1;
 const cars=generateCars(N);
 let bestCar=cars[0];
 if(localStorage.getItem("bestBrain")){
@@ -59,7 +59,7 @@ function discard(){
 function generateCars(N){
     const cars=[];
     for(let i=1;i<=N;i++){
-        cars.push(new Car(road.getLaneCenter(1),100,40,60,"AI",8,"blue"));
+        cars.push(new Car(road.getLaneCenter(1),100,40,60,"AI",18,"blue"));
     }
     return cars;
 }
