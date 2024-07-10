@@ -21,6 +21,8 @@ class Car{
             );
         }
         this.controls=new Controls(controlType);
+        this.particlesArray=[new Particle(this.x,this.y)]
+        this.controlType=controlType
 
         this.img=new Image();
         this.img.src="car.png"
@@ -41,6 +43,13 @@ class Car{
     }
 
     update(roadBorders,traffic){
+        if(this.sensor){
+            this.particlesArray.push(new Particle(this.x,this.y,this.controlType))
+            this.particlesArray.push(new Particle(this.x,this.y,this.controlType))
+        }else{
+            this.particlesArray.push(new Particle(this.x,this.y,this.controlType))
+        }
+
         if(!this.damaged){
             this.#move();
             this.polygon=this.#createPolygon();
@@ -144,6 +153,9 @@ class Car{
         if(this.sensor && drawSensor){
             // this.sensor.draw(ctx);
         }
+
+
+        this.particlesArray.forEach((particle)=>particle.drawParticle(ctx,this.particlesArray))
 
         ctx.save();
         ctx.translate(this.x,this.y);
