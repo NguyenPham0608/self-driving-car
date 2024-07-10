@@ -14,7 +14,7 @@ let laneArray=[
     0,2,1,2,0,1,2,0,0,2,1,0,2,1,0,2,1,2,0,1,2,0,0,2,1,0,2,1,0,0,1,2,2,0,0,0,1,2
 ]
 
-const N=1;
+const N=500;
 const cars=generateCars(N);
 let bestCar=cars[0];
 if(localStorage.getItem("bestBrain")){
