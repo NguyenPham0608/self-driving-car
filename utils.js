@@ -51,10 +51,16 @@ function getRandomColor(){
     const hue=290+Math.random()*260;
     return "hsl("+hue+", 100%, 60%)";
 }
+
             
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
   }
+
+  function getRandomRed(){
+    const hue=340+Math.random()*90;
+    return "hsl("+hue+", 100%, 60%)";
+}
 
 function increase_brightness(hex, percent){
     // strip the leading # if it's there

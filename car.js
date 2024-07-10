@@ -11,6 +11,7 @@ class Car{
         this.friction=0.05;
         this.angle=0;
         this.damaged=false;
+        this.exploded=0
 
         this.useBrain=controlType=="AI";
 
@@ -21,7 +22,7 @@ class Car{
             );
         }
         this.controls=new Controls(controlType);
-        this.particlesArray=[new Particle(this.x,this.y)]
+        this.particlesArray=[]
         this.controlType=controlType
 
         this.img=new Image();
@@ -43,12 +44,7 @@ class Car{
     }
 
     update(roadBorders,traffic){
-        if(this.sensor){
-            this.particlesArray.push(new Particle(this.x,this.y,this.controlType))
-            this.particlesArray.push(new Particle(this.x,this.y,this.controlType))
-        }else{
-            this.particlesArray.push(new Particle(this.x,this.y,this.controlType))
-        }
+
 
         if(!this.damaged){
             this.#move();
@@ -150,30 +146,50 @@ class Car{
     }
 
     draw(ctx,drawSensor=false){
-        if(this.sensor && drawSensor){
-            // this.sensor.draw(ctx);
-        }
-
-
         this.particlesArray.forEach((particle)=>particle.drawParticle(ctx,this.particlesArray))
 
-        ctx.save();
-        ctx.translate(this.x,this.y);
-        ctx.rotate(-this.angle);
         if(!this.damaged){
+            if(this.sensor && drawSensor){
+                // this.sensor.draw(ctx);
+            }
+
+            ctx.save();
+            ctx.translate(this.x,this.y);
+            ctx.rotate(-this.angle);
             ctx.drawImage(this.mask,
                 -this.width/2,
                 -this.height/2,
                 this.width,
                 this.height);
             ctx.globalCompositeOperation="multiply";
+
+            if(this.sensor){
+                this.particlesArray.push(new Particle(this.x,this.y,this.controlType,1))
+                this.particlesArray.push(new Particle(this.x,this.y,this.controlType,1))
+            }else{
+                this.particlesArray.push(new Particle(this.x,this.y,this.controlType,1))
+            }
+
+            ctx.drawImage(this.img,
+                -this.width/2,
+                -this.height/2,
+                this.width,
+                this.height);
+            ctx.restore();
+
+        }else{
+            if(this.exploded<2){
+                for(let i=0;i<10;i++){
+                    this.particlesArray.push(new Particle(this.x-3,this.y,this.controlType,2))
+                    this.particlesArray.push(new Particle(this.x+3,this.y,this.controlType,2))
+                    this.particlesArray.push(new Particle(this.x,this.y-3,this.controlType,2))
+                    this.particlesArray.push(new Particle(this.x,this.y+3,this.controlType,2))
+                }
+            }
+            this.exploded++
         }
-        ctx.drawImage(this.img,
-            -this.width/2,
-            -this.height/2,
-            this.width,
-            this.height);
-        ctx.restore();
+
+
 
     }
 }
