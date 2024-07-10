@@ -1,5 +1,5 @@
 const carCanvas=document.getElementById("carCanvas");
-carCanvas.width=400;
+carCanvas.width=220;
 const networkCanvas=document.getElementById("networkCanvas");
 networkCanvas.width=270;
 
@@ -10,8 +10,8 @@ const road=new Road(carCanvas.width/2,carCanvas.width*0.9);
 
 let randomLane=0
 let laneArray=[
-    0,2,1,2,0,1,2,0,0,2,1,0,2,1,0,2,1,2,0,1,2,0,0,2,1,0,2,1,0,0,1,2,2,0,0,0,2,
-    0,2,1,2,0,1,2,0,0,2,1,0,2,1,0,2,1,2,0,1,2,0,0,2,1,0,2,1,0,0,1,2,2,0,0,0,1,2
+    0,2,1,2,0,1,2,0,0,2,1,0,2,1,0,1,2,2,1,0,2,0,0,0,0,0,1,2,2,1,2,2,1,0,2,1,0,0,1,2,2,0,0,0,2,
+    0,2,1,2,0,1,2,0,0,2,1,0,2,1,0,2,1,2,0,1,2,0,0,2,1,0,2,1,0,0,1,2,2,0,0,0,1,2,0,1,2,2,1,0
 ]
 
 const N=500;
@@ -39,10 +39,9 @@ const traffic=[]
 //     new Car(road.getLaneCenter(2),-700,40,60,"DUMMY",2),
 // ]
 
-for(let i =0;i<180*laneArray.length;i+=180){
-    traffic.push(new Car(road.getLaneCenter(laneArray[i/180]),-i,40,60,"DUMMY",2))
+for(let i =0;i<220*laneArray.length;i+=220){
+    traffic.push(new Car(road.getLaneCenter(laneArray[i/220]),-i,40,60,"DUMMY",2))
 }
-
 
 
 animate();
@@ -59,10 +58,12 @@ function discard(){
 function generateCars(N){
     const cars=[];
     for(let i=1;i<=N;i++){
-        cars.push(new Car(road.getLaneCenter(1),100,40,60,"AI",18,"blue"));
+        cars.push(new Car(road.getLaneCenter(1),100,40,60,"AI",9,"blue"));
     }
     return cars;
 }
+
+
 
 function animate(time){
     for(let i=0;i<traffic.length;i++){
@@ -97,5 +98,7 @@ function animate(time){
 
     networkCtx.lineDashOffset=-time/50;
     // Visualizer.drawNetwork(networkCtx,bestCar.brain);
+    console.log()
+
     requestAnimationFrame(animate);
 }
