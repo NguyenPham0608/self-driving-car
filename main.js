@@ -1,14 +1,20 @@
 const carCanvas=document.getElementById("carCanvas");
 carCanvas.width=400;
 const networkCanvas=document.getElementById("networkCanvas");
-networkCanvas.width=300;
+networkCanvas.width=270;
 
 const carCtx = carCanvas.getContext("2d");
 const networkCtx = networkCanvas.getContext("2d");
 
 const road=new Road(carCanvas.width/2,carCanvas.width*0.9);
 
-const N=1;
+let randomLane=0
+let laneArray=[
+    0,2,1,2,0,1,2,0,0,2,1,0,2,1,0,2,1,2,0,1,2,0,0,2,1,0,2,1,0,0,1,2,2,0,0,0,2,
+    0,2,1,2,0,1,2,0,0,2,1,0,2,1,0,2,1,2,0,1,2,0,0,2,1,0,2,1,0,0,1,2,2,0,0,0,1,2
+]
+
+const N=500;
 const cars=generateCars(N);
 let bestCar=cars[0];
 if(localStorage.getItem("bestBrain")){
@@ -21,15 +27,23 @@ if(localStorage.getItem("bestBrain")){
     }
 }
 
-const traffic=[
-    new Car(road.getLaneCenter(1),-100,40,60,"DUMMY",2),
-    new Car(road.getLaneCenter(0),-300,40,60,"DUMMY",2),
-    new Car(road.getLaneCenter(2),-300,40,60,"DUMMY",2),
-    new Car(road.getLaneCenter(0),-500,40,60,"DUMMY",2),
-    new Car(road.getLaneCenter(1),-500,40,60,"DUMMY",2),
-    new Car(road.getLaneCenter(1),-700,40,60,"DUMMY",2),
-    new Car(road.getLaneCenter(2),-700,40,60,"DUMMY",2),
-];
+const traffic=[]
+
+// const traffic=[
+//     new Car(road.getLaneCenter(1),-100,40,60,"DUMMY",2),
+//     new Car(road.getLaneCenter(0),-300,40,60,"DUMMY",2),
+//     new Car(road.getLaneCenter(2),-300,40,60,"DUMMY",2),
+//     new Car(road.getLaneCenter(0),-500,40,60,"DUMMY",2),
+//     new Car(road.getLaneCenter(1),-500,40,60,"DUMMY",2),
+//     new Car(road.getLaneCenter(1),-700,40,60,"DUMMY",2),
+//     new Car(road.getLaneCenter(2),-700,40,60,"DUMMY",2),
+// ]
+
+for(let i =0;i<180*laneArray.length;i+=180){
+    traffic.push(new Car(road.getLaneCenter(laneArray[i/180]),-i,40,60,"DUMMY",2))
+}
+
+
 
 animate();
 
