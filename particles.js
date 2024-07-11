@@ -5,18 +5,28 @@ class Particle{
         this.lifetime=0
         this.type=car
         this.particleType=type
+        this.opacity=getRandomArbitrary(0,60)
         if (type=="1") {
             this.sx=getRandomArbitrary(-0.5,0.5)  
         } else {
             this.sx=getRandomArbitrary(-2,2)
         }
+        this.randomX=getRandomArbitrary(-1,1)
+        this.randomY=getRandomArbitrary(-2,2)
+
         this.sy=getRandomArbitrary(3,7)
-        if(this.type=="AI"||this.type=="KEYS"||this.particleType==2){
+        if(this.type=="AI"||this.type=="KEYS"){
             this.fill=getRandomRed()
             // this.fill="#FFFFFF"
         }else{
             this.fill='#000000'
         }
+
+        if(this.particleType==2){
+            this.fill=getRandomColor()
+        }
+
+        
 
         this.lifeSpan=getRandomArbitrary(36,52)
         
@@ -24,11 +34,15 @@ class Particle{
     }
 
     drawParticle(ctx,array){
+
+
         if(this.particleType==1){
             this.radius-=Math.random()/3
             if(this.radius<0){
                 this.radius=0
             }
+
+
     
             if(this.type=="AI"||this.type=="KEYS"){
                 // this.x+=getRandomArbitrary(-3-(this.lifetime/15),3+(this.lifetime/15))
@@ -38,7 +52,7 @@ class Particle{
                 this.x+=getRandomArbitrary(-3,3)
     
             }
-    
+            
             
     
             ctx.beginPath()
@@ -51,9 +65,12 @@ class Particle{
                 array.shift()
             }
         }else{
+            this.randomX=getRandomArbitrary(-1,1)
+            this.randomY=getRandomArbitrary(-2,2)
+
             this.sy-=Math.random()/5
-            this.x+=this.sx
-            this.y-=this.sy
+            this.x+=this.sx+this.randomX
+            this.y-=this.sy+this.randomY
             this.radius-=0.05
             if(this.radius<0){
                 this.radius=0
@@ -64,5 +81,6 @@ class Particle{
             ctx.fill()
             this.lifetime++
         }
+
     }
 }

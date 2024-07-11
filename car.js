@@ -179,12 +179,15 @@ class Car{
 
         }else{
             if(this.exploded<2){
-                for(let i=0;i<10;i++){
+                for(let i=0;i<20;i++){
                     this.particlesArray.push(new Particle(this.x-3,this.y,this.controlType,2))
                     this.particlesArray.push(new Particle(this.x+3,this.y,this.controlType,2))
                     this.particlesArray.push(new Particle(this.x,this.y-3,this.controlType,2))
                     this.particlesArray.push(new Particle(this.x,this.y+3,this.controlType,2))
                 }
+            }
+            if(this.exploded<1){
+                bam.play()
             }
             this.exploded++
         }
