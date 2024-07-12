@@ -19,6 +19,13 @@ class Road{
             [topLeft,bottomLeft],
             [topRight,bottomRight]
         ];
+
+        this.sparkles=[]
+        for(let i=0;i<10000;i+=getRandomArbitrary(50,300)){
+            this.sparkles.push(new Sparkle(getRandomArbitrary(0,carCanvas.width),-i+getRandomArbitrary(-50,50),getRandomArbitrary(5,15)))
+            this.sparkles.push(new Sparkle(getRandomArbitrary(0,carCanvas.width),-i,getRandomArbitrary(5,15)))
+
+        }
     }
 
     getLaneCenter(laneIndex){
@@ -30,6 +37,8 @@ class Road{
     draw(ctx){
         ctx.lineWidth=5;
         ctx.strokeStyle="white";
+
+        this.sparkles.forEach((sparkle)=>{sparkle.draw(ctx)})
 
         for(let i=1;i<=this.laneCount-1;i++){
             const x=lerp(

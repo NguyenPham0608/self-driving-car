@@ -4,12 +4,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="score">
+        <b><p>Score: <span id="scorecounter">0</span></p></b>
+    </div>
+
     <canvas id="carCanvas"></canvas>
     <div id="verticalButtons">
         <button onclick="save()">💾</button>
         <button onclick="discard()">🗑️</button>
     </div>
+
+
+
     <canvas id="networkCanvas"></canvas>
+    <script src="sparkle.js"></script>
     <script src="particles.js"></script>
     <script src="visualizer.js"></script>
     <script src="network.js"></script>

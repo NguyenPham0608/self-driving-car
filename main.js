@@ -1,7 +1,11 @@
 const carCanvas=document.getElementById("carCanvas");
 carCanvas.width=220;
+
 const networkCanvas=document.getElementById("networkCanvas");
 networkCanvas.width=270;
+let score=0
+var output = document.getElementById("scorecounter");
+output.innerHTML = score;
 
 const carCtx = carCanvas.getContext("2d");
 const networkCtx = networkCanvas.getContext("2d");
@@ -20,7 +24,7 @@ let laneArray=[
     0,2,1,2,0,1,2,0,0,2,1,0,2,1,0,2,1,2,0,1,2,0,0,2,1,0,2,1,0,0,1,2,2,0,0,0,1,2,0,1,2,2,1,0
 ]
 
-const N=10;
+const N=1;
 const cars=generateCars(N);
 let bestCar=cars[0];
 if(localStorage.getItem("bestBrain")){
@@ -32,6 +36,7 @@ if(localStorage.getItem("bestBrain")){
         }
     }
 }
+
 
 const traffic=[]
 
@@ -72,6 +77,11 @@ function generateCars(N){
 
 
 function animate(time){
+    output.innerHTML = Math.abs(Math.floor((score-100)));
+    
+    carCanvas.height=(window.innerHeight);
+    networkCanvas.height=window.innerHeight;
+
     for(let i=0;i<traffic.length;i++){
         traffic[i].update(road.borders,[]);
     }
@@ -83,8 +93,6 @@ function animate(time){
             ...cars.map(c=>c.y)
         ));
 
-    carCanvas.height=window.innerHeight;
-    networkCanvas.height=window.innerHeight;
 
     carCtx.save();
     carCtx.translate(0,-bestCar.y+carCanvas.height*0.7);
@@ -99,12 +107,13 @@ function animate(time){
     }
     carCtx.globalAlpha=1;
     bestCar.draw(carCtx,true);
+    score=bestCar.y
 
     carCtx.restore();
 
     networkCtx.lineDashOffset=-time/50;
     // Visualizer.drawNetwork(networkCtx,bestCar.brain);
-    console.log()
+    console.log(score)
 
     requestAnimationFrame(animate);
 }
