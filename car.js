@@ -4,6 +4,7 @@ class Car{
         this.y=y;
         this.width=width;
         this.height=height;
+        this.controlType=controlType
 
         this.speed=0;
         this.acceleration=0.2;
@@ -13,9 +14,9 @@ class Car{
         this.damaged=false;
         this.exploded=0
 
-        this.useBrain=controlType=="AI";
+        this.useBrain=this.controlType=="AI";
 
-        if(controlType!="DUMMY"){
+        if(this.controlType!="DUMMY"){
             this.sensor=new Sensor(this);
             this.brain=new NeuralNetwork(
                 [this.sensor.rayCount,6,4]
@@ -23,7 +24,6 @@ class Car{
         }
         this.controls=new Controls(controlType);
         this.particlesArray=[]
-        this.controlType=controlType
 
         this.img=new Image();
         this.img.src="car.png"

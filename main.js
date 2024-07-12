@@ -2,7 +2,7 @@ const carCanvas=document.getElementById("carCanvas");
 carCanvas.width=220;
 
 const networkCanvas=document.getElementById("networkCanvas");
-networkCanvas.width=270;
+networkCanvas.width=1;
 let score=0
 var output = document.getElementById("scorecounter");
 output.innerHTML = score;
@@ -16,6 +16,7 @@ bam.src="explosion.wav"
 
 const particlesList=[]
 
+let CARTYPE="KEYS"
 
 
 let randomLane=0
@@ -57,6 +58,13 @@ for(let i =0;i<220*laneArray.length;i+=220){
 
 animate();
 
+
+function changeCarType(type){
+    window.location.reload()
+    CARTYPE=type
+
+}
+
 function save(){
     localStorage.setItem("bestBrain",
         JSON.stringify(bestCar.brain));
@@ -69,7 +77,7 @@ function discard(){
 function generateCars(N){
     const cars=[];
     for(let i=1;i<=N;i++){
-        cars.push(new Car(road.getLaneCenter(1),100,40,60,"AI",9,"#00FF00"));
+        cars.push(new Car(road.getLaneCenter(1),100,40,60,CARTYPE,9,"#00FF00"));
     }
     return cars;
 }
@@ -77,6 +85,8 @@ function generateCars(N){
 
 
 function animate(time){
+
+
     output.innerHTML = Math.abs(Math.floor((score-100)));
     
     carCanvas.height=(window.innerHeight);
@@ -113,9 +123,19 @@ function animate(time){
 
     networkCtx.lineDashOffset=-time/50;
     // Visualizer.drawNetwork(networkCtx,bestCar.brain);
-    console.log(score)
+    console.log(CARTYPE)
+
+    carCtx.fillStyle='#444444'
+    carCtx.fillRect(0,carCanvas.height,carCanvas.width,-50)
+
 
     requestAnimationFrame(animate);
 }
+
+window.addEventListener('keydown',function(e){
+    if(e.key=="r"){
+        window.location.reload()
+    }
+})
 
 
