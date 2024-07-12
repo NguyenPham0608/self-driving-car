@@ -48,7 +48,7 @@ function getRGBA(value){
 }
 
 function getRandomColor(){
-    const hue=290+Math.random()*260;
+    const hue=200+getRandomArbitrary(0,500)
     return "hsl("+hue+", 100%, 60%)";
 }
 

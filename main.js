@@ -69,7 +69,7 @@ function discard(){
 function generateCars(N){
     const cars=[];
     for(let i=1;i<=N;i++){
-        cars.push(new Car(road.getLaneCenter(1),100,40,60,"KEYS",9,"blue"));
+        cars.push(new Car(road.getLaneCenter(1),100,40,60,"AI",9,"#00FF00"));
     }
     return cars;
 }
